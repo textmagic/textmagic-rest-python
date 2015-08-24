@@ -66,7 +66,7 @@ def app(args):
                 rows, pager = getattr(client, method).list(page=page)
                 print("\n  %s  " % title)
                 print("===============")
-                print("Page %s of %s\n" % (pager["page"], pager["page_count"]))
+                print("Page %s of %s\n" % (pager["page"], pager["pageCount"]))
                 for r in rows:
                     print(template % tuple(getattr(r, x) for x in fields))
 
