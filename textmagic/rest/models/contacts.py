@@ -51,7 +51,7 @@ class Contacts(CollectionModel):
 
         contacts, pager = client.contacts.list()
 
-        :param bool search:   If True then search contacts using `query`, `ids` and/or `group_id`. Default=False
+        :param bool search:   If True then search contacts using `query`, `ids` and/or `listId`. Default=False
         :param int  page:     Fetch specified results page. Default=1
         :param int  limit:    How many results on page. Default=10
         :param int  shared:   Should shared contacts to be included. Default=0

@@ -64,22 +64,22 @@ class Messages(CollectionModel):
 
         message = client.messages.create(from_="447624800500", phones="999000001", text="Hello!", lists="1909100")
 
-        :param str text:         Message text. Required if template_id is not set.
+        :param str text:         Message text. Required if templateId is not set.
         :param str templateId:   Template used instead of message text. Required if text is not set.
         :param str sendingTime:  Message sending time in unix timestamp format. Default is now.
-                                 Optional (required with recurrency_rule set).
+                                 Optional (required with rrule set).
         :param str contacts:     Contacts ids, separated by comma, message will be sent to.
         :param str lists:        Lists ids, separated by comma, message will be sent to.
         :param str phones:       Phone numbers, separated by comma, message will be sent to.
         :param int cutExtra:     Should sending method cut extra characters
-                                 which not fit supplied parts_count or return 400 Bad request response instead.
+                                 which not fit supplied partsCount or return 400 Bad request response instead.
                                  Default is false.
         :param int partsCount:   Maximum message parts count (TextMagic allows sending 1 to 6 message parts).
                                  Default is 6.
         :param str referenceId:  Custom message reference id which can be used in your application infrastructure.
         :param str from_:        One of allowed Sender ID (phone number or alphanumeric sender ID).
         :param str rrule:        iCal RRULE parameter to create recurrent scheduled messages.
-                                 When used, sending_time is mandatory as start point of sending.
+                                 When used, sendingTime is mandatory as start point of sending.
         :param int dummy:        If 1, just return message pricing. Message will not send.
         """
 
@@ -100,21 +100,21 @@ class Messages(CollectionModel):
         message = client.messages.price(from_="447624800500", phones="999000001", text="Hello!", lists="1909100")
 
         :param str from:         One of allowed Sender ID (phone number or alphanumeric sender ID).
-        :param str text:         Message text. Required if template_id is not set.
+        :param str text:         Message text. Required if templateId is not set.
         :param str templateId:   Template used instead of message text. Required if text is not set.
         :param str sendingTime:  Message sending time in unix timestamp format. Default is now.
-                                 Optional (required with recurrency_rule set).
+                                 Optional (required with rrule set).
         :param str contacts:     Contacts ids, separated by comma, message will be sent to.
         :param str lists:        Lists ids, separated by comma, message will be sent to.
         :param str phones:       Phone numbers, separated by comma, message will be sent to.
         :param int cutExtra:     Should sending method cut extra characters
-                                 which not fit supplied parts_count or return 400 Bad request response instead.
+                                 which not fit supplied partsCount or return 400 Bad request response instead.
                                  Default is false.
         :param int partsCount:   Maximum message parts count (TextMagic allows sending 1 to 6 message parts).
                                  Default is 6.
         :param str referenceId:  Custom message reference id which can be used in your application infrastructure.
         :param str rrule:        iCal RRULE parameter to create recurrent scheduled messages.
-                                 When used, sending_time is mandatory as start point of sending.
+                                 When used, sendingTime is mandatory as start point of sending.
         :param int dummy:        If 1, just return message pricing. Message will not send.
         """
         if from_:
