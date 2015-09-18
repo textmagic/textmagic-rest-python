@@ -86,13 +86,13 @@ def app(args):
             title = "MY CONTACTS"
             method = "contacts"
             template = "%s | %s %s | %s"
-            fields = ("id", "first_name", "last_name", "phone")
+            fields = ("id", "firstName", "lastName", "phone")
             pagination(title, method, template, fields)
         elif "lists" in args:
             title = "LISTS"
             method = "lists"
             template = "%s | %s | %s"
-            fields = ("id", "name", "members_count")
+            fields = ("id", "name", "membersCount")
             pagination(title, method, template, fields)
         elif "sent" in args:
             title = "SENT MESSAGES"
@@ -114,8 +114,8 @@ def app(args):
         print("ACCOUNT DETAILS")
         print("===============")
         print("User ID    : %s" % user.id)
-        print("First name : %s" % user.first_name)
-        print("Last name  : %s" % user.last_name)
+        print("First name : %s" % user.firstName)
+        print("Last name  : %s" % user.lastName)
         print("Username   : %s" % user.username)
         print("Balance    : %s %s" % (user.balance, user.currency["id"]))
         if user.timezone:
