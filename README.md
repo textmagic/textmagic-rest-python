@@ -1,6 +1,6 @@
 * About TextMagic Python API
   The TextMagic Python API includes classes and methods
-  for accessing the functionality of the [[https://www.textmagic.com/docs/api/][TextMagic API]].
+  for accessing the functionality of the [[https://www.textmagic.com/docs/api/][TextMagic REST API]].
 * Installing
   The easiest way to install the TextMagic Python API is via =pip=:
 
@@ -19,7 +19,8 @@
   The first thing to do is create a =TextmagicRestClient= object:
 
   #+begin_src python
-    client = textmagic.rest.TextmagicRestClient("username", "API key")
+    from textmagic.rest import TextmagicRestClient
+    client = TextmagicRestClient("username", "API key")
   #+end_src
 
   You will, of course, need to provide your own username and API key.
@@ -27,7 +28,7 @@
   To send an SMS message:
 
   #+begin_src python
-    client.messages.create(phones="comma-separated list of phone#'s", text="message text")
+    client.messages.create(phones="comma-separated list of phone numbers", text="message text")
   #+end_src
 
   You can send to multiple phone numbers by separating them by a comma.
