@@ -25,27 +25,27 @@ from .models import (
 )
 
 allowed_resources = dict(
-    messages="Messages",
-    contacts="Contacts",
-    custom_fields="CustomFields",
-    unsubscribers="Unsubscribers",
-    lists="Lists",
-    replies="Replies",
-    templates="Templates",
-    bulks="Bulks",
-    chats="Chats",
-    schedules="Schedules",
-    sessions="Sessions",
-    user="Users",
-    numbers="Numbers",
-    senderids="Senderids",
-    sources="Sources",
-    subaccounts="Subaccounts",
-    invoices="Invoices",
-    tokens="Tokens",
-    stats_messaging="MessagingStats",
-    stats_spending="SpendingStats",
-    util="Utils"
+    messages=Messages,
+    contacts=Contacts,
+    custom_fields=CustomFields,
+    unsubscribers=Unsubscribers,
+    lists=Lists,
+    replies=Replies,
+    templates=Templates,
+    bulks=Bulks,
+    chats=Chats,
+    schedules=Schedules,
+    sessions=Sessions,
+    user=Users,
+    numbers=Numbers,
+    senderids=Senderids,
+    sources=Sources,
+    subaccounts=Subaccounts,
+    invoices=Invoices,
+    tokens=Tokens,
+    stats_messaging=MessagingStats,
+    stats_spending=SpendingStats,
+    util=Utils
 )
 
 
@@ -129,5 +129,5 @@ values from your Textmagic Account at https://my.textmagic.com/online/api/rest-a
     def __getattr__(self, attr):
         if attr not in allowed_resources:
             raise AttributeError
-        self.__dict__[attr] = globals()[allowed_resources[attr]](self.base, self.auth)
+        self.__dict__[attr] = allowed_resources[attr](self.base, self.auth)
         return self.__dict__[attr]
