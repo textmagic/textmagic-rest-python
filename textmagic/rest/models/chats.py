@@ -95,7 +95,7 @@ class Chats(CollectionModel):
         kwargs["search"] = False
         return self.get_instances(kwargs)
 
-    def by_phone(self, phone=0, **kwargs):
+    def by_phone(self, phone, **kwargs):
         """
         Fetch messages from chat with specified phone number.
 
