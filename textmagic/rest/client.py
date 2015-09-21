@@ -25,27 +25,27 @@ from .models import (
 )
 
 allowed_resources = dict(
-    messages="Messages",
-    contacts="Contacts",
-    custom_fields="CustomFields",
-    unsubscribers="Unsubscribers",
-    lists="Lists",
-    replies="Replies",
-    templates="Templates",
-    bulks="Bulks",
-    chats="Chats",
-    schedules="Schedules",
-    sessions="Sessions",
-    user="Users",
-    numbers="Numbers",
-    senderids="Senderids",
-    sources="Sources",
-    subaccounts="Subaccounts",
-    invoices="Invoices",
-    tokens="Tokens",
-    stats_messaging="MessagingStats",
-    stats_spending="SpendingStats",
-    util="Utils"
+    messages=Messages,
+    contacts=Contacts,
+    custom_fields=CustomFields,
+    unsubscribers=Unsubscribers,
+    lists=Lists,
+    replies=Replies,
+    templates=Templates,
+    bulks=Bulks,
+    chats=Chats,
+    schedules=Schedules,
+    sessions=Sessions,
+    user=Users,
+    numbers=Numbers,
+    senderids=Senderids,
+    sources=Sources,
+    subaccounts=Subaccounts,
+    invoices=Invoices,
+    tokens=Tokens,
+    stats_messaging=MessagingStats,
+    stats_spending=SpendingStats,
+    util=Utils
 )
 
 
@@ -103,31 +103,12 @@ values from your Textmagic Account at https://my.textmagic.com/online/api/rest-a
         self.request_interval = 0.5
 
         if not lazy:
-            self.messages = Messages(self.base, self.auth)
-            self.contacts = Contacts(self.base, self.auth)
-            self.custom_fields = CustomFields(self.base, self.auth)
-            self.unsubscribers = Unsubscribers(self.base, self.auth)
-            self.lists = Lists(self.base, self.auth)
-            self.replies = Replies(self.base, self.auth)
-            self.templates = Templates(self.base, self.auth)
-            self.bulks = Bulks(self.base, self.auth)
-            self.chats = Chats(self.base, self.auth)
-            self.schedules = Schedules(self.base, self.auth)
-            self.sessions = Sessions(self.base, self.auth)
-            self.numbers = Numbers(self.base, self.auth)
-            self.senderids = Senderids(self.base, self.auth)
-            self.sources = Sources(self.base, self.auth)
-            self.subaccounts = Subaccounts(self.base, self.auth)
-            self.invoices = Invoices(self.base, self.auth)
-            self.user = Users(self.base, self.auth)
-            self.tokens = Tokens(self.base, self.auth)
-            self.stats_messaging = MessagingStats(self.base, self.auth)
-            self.stats_spending = SpendingStats(self.base, self.auth)
-            self.util = Utils(self.base, self.auth)
+            for attr in allowed_resources:
+                getattr(self, attr)
 
     # Create a resource during a call if it doesn't exists
     def __getattr__(self, attr):
         if attr not in allowed_resources:
             raise AttributeError
-        self.__dict__[attr] = globals()[allowed_resources[attr]](self.base, self.auth)
+        self.__dict__[attr] = allowed_resources[attr](self.base, self.auth)
         return self.__dict__[attr]
