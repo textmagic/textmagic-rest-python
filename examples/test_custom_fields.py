@@ -113,6 +113,7 @@ class TestCustomFields(unittest.TestCase):
 
         # Get an updated contact
 
+        time.sleep(.5)
         contact = self.client.contacts.get(contact.id)
         custom_fields = contact.customFields
         self.assertTrue(type(custom_fields) is list)

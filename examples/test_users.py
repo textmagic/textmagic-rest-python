@@ -158,6 +158,7 @@ class TestUsers(unittest.TestCase):
 
         # Get deleted sender id
 
+        time.sleep(.5)
         self.assertRaises(TextmagicException, self.client.senderids.get, senderid.id)
 
         # Get allowed froms
