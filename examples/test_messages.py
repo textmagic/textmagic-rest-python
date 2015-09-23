@@ -237,14 +237,15 @@ class TestMessages(unittest.TestCase):
         self.assertTrue(type(bulks) is list)
         self.assertTrue(isinstance(pager, dict))
 
-        self.assertTrue(bulks[0], Bulk)
-        self.assertTrue(hasattr(bulks[0], "id"))
-        self.assertTrue(hasattr(bulks[0], "status"))
-        self.assertTrue(hasattr(bulks[0], "itemsProcessed"))
-        self.assertTrue(hasattr(bulks[0], "itemsTotal"))
-        self.assertTrue(hasattr(bulks[0], "createdAt"))
-        self.assertTrue(hasattr(bulks[0], "text"))
-        self.assertTrue(hasattr(bulks[0], "session"))
+        if bulks:
+            self.assertTrue(bulks[0], Bulk)
+            self.assertTrue(hasattr(bulks[0], "id"))
+            self.assertTrue(hasattr(bulks[0], "status"))
+            self.assertTrue(hasattr(bulks[0], "itemsProcessed"))
+            self.assertTrue(hasattr(bulks[0], "itemsTotal"))
+            self.assertTrue(hasattr(bulks[0], "createdAt"))
+            self.assertTrue(hasattr(bulks[0], "text"))
+            self.assertTrue(hasattr(bulks[0], "session"))
 
         # Get chat messages by phone
 
@@ -254,15 +255,16 @@ class TestMessages(unittest.TestCase):
         self.assertTrue(type(chat_msgs) is list)
         self.assertTrue(isinstance(pager, dict))
 
-        self.assertTrue(chat_msgs[0], ChatMessage)
-        self.assertTrue(hasattr(chat_msgs[0], "id"))
-        self.assertTrue(hasattr(chat_msgs[0], "sender"))
-        self.assertTrue(hasattr(chat_msgs[0], "messageTime"))
-        self.assertTrue(hasattr(chat_msgs[0], "text"))
-        self.assertTrue(hasattr(chat_msgs[0], "receiver"))
-        self.assertTrue(hasattr(chat_msgs[0], "status"))
-        self.assertTrue(hasattr(chat_msgs[0], "firstName"))
-        self.assertTrue(hasattr(chat_msgs[0], "lastName"))
+        if chat_msgs:
+            self.assertTrue(chat_msgs[0], ChatMessage)
+            self.assertTrue(hasattr(chat_msgs[0], "id"))
+            self.assertTrue(hasattr(chat_msgs[0], "sender"))
+            self.assertTrue(hasattr(chat_msgs[0], "messageTime"))
+            self.assertTrue(hasattr(chat_msgs[0], "text"))
+            self.assertTrue(hasattr(chat_msgs[0], "receiver"))
+            self.assertTrue(hasattr(chat_msgs[0], "status"))
+            self.assertTrue(hasattr(chat_msgs[0], "firstName"))
+            self.assertTrue(hasattr(chat_msgs[0], "lastName"))
 
         # Get chat list
 
