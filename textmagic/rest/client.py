@@ -99,8 +99,6 @@ values from your Textmagic Account at https://my.textmagic.com/online/api/rest-a
         self.auth = (username, token)
         self.lazy = lazy
         self.last_request_time = 0
-        # Don't decrease this value to avoid 429 error, TextMagic APIv2 limit is 2 requests per second.
-        self.request_interval = 0.5
 
         if not lazy:
             for attr in allowed_resources:
