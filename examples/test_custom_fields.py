@@ -30,7 +30,7 @@ class TestCustomFields(unittest.TestCase):
         ]
         for f in calls:
             try:
-                time.sleep(.5)
+                time.sleep(.8)
                 method = getattr(f[0], "delete")
                 method(f[1])
             except:
@@ -40,7 +40,7 @@ class TestCustomFields(unittest.TestCase):
 
         # Create a custom field
 
-        time.sleep(.5)
+        time.sleep(.8)
         field = self.client.custom_fields.create(name=self.field_name_a)
         self.field_a_id = field.id
         self.assertTrue(isinstance(field, CustomField))
@@ -49,7 +49,7 @@ class TestCustomFields(unittest.TestCase):
 
         # Get a custom field
 
-        time.sleep(.5)
+        time.sleep(.8)
         field_a = self.client.custom_fields.get(field.id)
         self.assertTrue(isinstance(field_a, CustomField))
         self.assertTrue(hasattr(field_a, "id"))
@@ -59,7 +59,7 @@ class TestCustomFields(unittest.TestCase):
 
         # Update a custom field
 
-        time.sleep(.5)
+        time.sleep(.8)
         field = self.client.custom_fields.update(
             field_a.id,
             name="Test Custom ABC"
@@ -70,7 +70,7 @@ class TestCustomFields(unittest.TestCase):
 
         # Get an updated custom field
 
-        time.sleep(.5)
+        time.sleep(.8)
         field_a = self.client.custom_fields.get(field.id)
         self.assertTrue(isinstance(field_a, CustomField))
         self.assertTrue(hasattr(field_a, "id"))
@@ -80,7 +80,7 @@ class TestCustomFields(unittest.TestCase):
 
         # Create a list to assign contact
 
-        time.sleep(.5)
+        time.sleep(.8)
         my_list = self.client.lists.create(
             name=self.list_name
         )
@@ -88,7 +88,7 @@ class TestCustomFields(unittest.TestCase):
 
         # Create a contact
 
-        time.sleep(.5)
+        time.sleep(.8)
         contact = self.client.contacts.create(
             phone=self.contact_phone,
             lists=my_list.id
@@ -101,7 +101,7 @@ class TestCustomFields(unittest.TestCase):
 
         # Update created contact's custom field value.
 
-        time.sleep(.5)
+        time.sleep(.8)
         updated = self.client.custom_fields.update_value(
             uid=field_a.id,
             contactId=contact.id,
@@ -113,7 +113,7 @@ class TestCustomFields(unittest.TestCase):
 
         # Get an updated contact
 
-        time.sleep(.5)
+        time.sleep(.8)
         contact = self.client.contacts.get(contact.id)
         custom_fields = contact.customFields
         self.assertTrue(type(custom_fields) is list)
@@ -128,11 +128,11 @@ class TestCustomFields(unittest.TestCase):
 
         # Delete a custom field
 
-        time.sleep(.5)
+        time.sleep(.8)
         r = self.client.custom_fields.delete(field_a.id)
         self.assertTrue(r)
 
         # Get a deleted custom field
 
-        time.sleep(.5)
+        time.sleep(.8)
         self.assertRaises(TextmagicException, self.client.custom_fields.get, field_a.id)

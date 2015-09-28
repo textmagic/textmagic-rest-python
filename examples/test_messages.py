@@ -27,7 +27,7 @@ class TestMessages(unittest.TestCase):
         ]
         for f in calls:
             try:
-                time.sleep(.5)
+                time.sleep(.8)
                 method = getattr(f[0], "delete")
                 method(f[1])
             except:
@@ -39,7 +39,7 @@ class TestMessages(unittest.TestCase):
 
         # Send a single message
 
-        time.sleep(0.5)
+        time.sleep(.8)
         message = client.messages.create(
             text=self.text,
             phones=self.phones
@@ -58,7 +58,7 @@ class TestMessages(unittest.TestCase):
 
         # Get a session
 
-        time.sleep(0.5)
+        time.sleep(.8)
         session = client.sessions.get(message.sessionId)
 
         self.assertTrue(isinstance(session, Session))
@@ -77,7 +77,7 @@ class TestMessages(unittest.TestCase):
 
         # Get messages from session
 
-        time.sleep(0.5)
+        time.sleep(.8)
         session_messages, _ = client.sessions.messages(session.id)
 
         self.assertTrue(type(session_messages) is list)
@@ -87,7 +87,7 @@ class TestMessages(unittest.TestCase):
 
         # Get sessions list
 
-        time.sleep(0.5)
+        time.sleep(.8)
         sessions, pager = client.sessions.list()
 
         self.assertTrue(type(sessions) is list)
@@ -96,7 +96,7 @@ class TestMessages(unittest.TestCase):
 
         # Get a single message
 
-        time.sleep(0.5)
+        time.sleep(.8)
         single_message = client.messages.get(message.id)
 
         self.assertTrue(isinstance(single_message, Message))
@@ -115,7 +115,7 @@ class TestMessages(unittest.TestCase):
 
         # Get a messages list
 
-        time.sleep(0.5)
+        time.sleep(.8)
         messages, pager = client.messages.list()
 
         self.assertTrue(type(session_messages) is list)
@@ -141,24 +141,24 @@ class TestMessages(unittest.TestCase):
 
         # Delete a single message
 
-        time.sleep(0.5)
+        time.sleep(.8)
         r = client.messages.delete(single_message.id)
         self.assertTrue(r)
 
         # Get a deleted single message
 
-        time.sleep(.5)
+        time.sleep(.8)
         self.assertRaises(TextmagicException, client.messages.get, single_message.id)
 
         # Delete a session
 
-        time.sleep(0.5)
+        time.sleep(.8)
         r = client.sessions.delete(session.id)
         self.assertTrue(r)
 
         # Get a deleted session
 
-        time.sleep(.5)
+        time.sleep(.8)
         self.assertRaises(TextmagicException, client.sessions.get, session.id)
 
         # Create a dummy message
@@ -174,7 +174,7 @@ class TestMessages(unittest.TestCase):
 
         # Message price
 
-        time.sleep(0.5)
+        time.sleep(0.8)
         price = client.messages.price(
             text=self.text,
             phones="99900000"
@@ -186,7 +186,7 @@ class TestMessages(unittest.TestCase):
 
         # Create a scheduled message
 
-        time.sleep(0.5)
+        time.sleep(0.8)
         start_time = int(time.time()) + 7200
         message = client.messages.create(text=self.text,
                                          phones=self.phones,
@@ -206,7 +206,7 @@ class TestMessages(unittest.TestCase):
 
         # Get a scheduled message
 
-        time.sleep(0.5)
+        time.sleep(0.8)
         scheduled = client.schedules.get(message.id)
 
         self.assertTrue(isinstance(scheduled, Schedule))
@@ -225,13 +225,13 @@ class TestMessages(unittest.TestCase):
 
         # Delete a scheduled message
 
-        time.sleep(0.5)
+        time.sleep(0.8)
         r = client.schedules.delete(message.id)
         self.assertTrue(r)
 
         # Get bulks list
 
-        time.sleep(0.5)
+        time.sleep(0.8)
         bulks, pager = client.bulks.list()
 
         self.assertTrue(type(bulks) is list)
@@ -249,7 +249,7 @@ class TestMessages(unittest.TestCase):
 
         # Get chat messages by phone
 
-        time.sleep(0.5)
+        time.sleep(0.8)
         chat_msgs, pager = client.chats.by_phone('79659750964')
 
         self.assertTrue(type(chat_msgs) is list)
@@ -268,7 +268,7 @@ class TestMessages(unittest.TestCase):
 
         # Get chat list
 
-        time.sleep(0.5)
+        time.sleep(0.8)
         chats, pager = client.chats.list()
 
         self.assertTrue(type(chats) is list)
