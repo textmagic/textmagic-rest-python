@@ -165,10 +165,6 @@ class Model(object):
         del self.auth
         self.__dict__.update(entries)
 
-    @property
-    def uri(self):
-        return "%s/%s" % (self.base_uri, self.name)
-
 
 class CollectionModel(Model):
     name = "model"
@@ -247,3 +243,7 @@ class CollectionModel(Model):
         uri = "%s/%s" % (self.uri, uid)
         response, instance = self.request("DELETE", uri)
         return response.status == 204
+
+    @property
+    def uri(self):
+        return "%s/%s" % (self.base_uri, self.name)
