@@ -66,13 +66,14 @@ class TestUsers(unittest.TestCase):
 
         self.assertTrue(type(invoices) is list)
         self.assertTrue(isinstance(pager, dict))
-        self.assertTrue(isinstance(invoices[0], Invoice))
 
-        self.assertTrue(hasattr(invoices[0], "id"))
-        self.assertTrue(hasattr(invoices[0], "bundle"))
-        self.assertTrue(hasattr(invoices[0], "currency"))
-        self.assertTrue(hasattr(invoices[0], "vat"))
-        self.assertTrue(hasattr(invoices[0], "paymentMethod"))
+        if invoices:
+            self.assertTrue(isinstance(invoices[0], Invoice))
+            self.assertTrue(hasattr(invoices[0], "id"))
+            self.assertTrue(hasattr(invoices[0], "bundle"))
+            self.assertTrue(hasattr(invoices[0], "currency"))
+            self.assertTrue(hasattr(invoices[0], "vat"))
+            self.assertTrue(hasattr(invoices[0], "paymentMethod"))
 
         # Get numbers list
 
@@ -158,6 +159,7 @@ class TestUsers(unittest.TestCase):
 
         # Get deleted sender id
 
+        time.sleep(.5)
         self.assertRaises(TextmagicException, self.client.senderids.get, senderid.id)
 
         # Get allowed froms
@@ -224,7 +226,9 @@ class TestUsers(unittest.TestCase):
 
         self.assertTrue(type(subs) is list)
         self.assertTrue(isinstance(pager, dict))
-        self.assertTrue(isinstance(subs[0], User))
+
+        if subs:
+            self.assertTrue(isinstance(subs[0], User))
 
         # Send invite
 
@@ -235,18 +239,19 @@ class TestUsers(unittest.TestCase):
         # Get subaccount
 
         time.sleep(.5)
-        sub = self.client.subaccounts.get(subs[0].id)
+        if subs:
+            sub = self.client.subaccounts.get(subs[0].id)
 
-        self.assertTrue(isinstance(sub, User))
-        self.assertTrue(hasattr(sub, "id"))
-        self.assertTrue(hasattr(sub, "username"))
-        self.assertTrue(hasattr(sub, "firstName"))
-        self.assertTrue(hasattr(sub, "lastName"))
-        self.assertTrue(hasattr(sub, "balance"))
-        self.assertTrue(hasattr(sub, "company"))
-        self.assertTrue(hasattr(sub, "currency"))
-        self.assertTrue(hasattr(sub, "timezone"))
-        self.assertTrue(hasattr(sub, "subaccountType"))
+            self.assertTrue(isinstance(sub, User))
+            self.assertTrue(hasattr(sub, "id"))
+            self.assertTrue(hasattr(sub, "username"))
+            self.assertTrue(hasattr(sub, "firstName"))
+            self.assertTrue(hasattr(sub, "lastName"))
+            self.assertTrue(hasattr(sub, "balance"))
+            self.assertTrue(hasattr(sub, "company"))
+            self.assertTrue(hasattr(sub, "currency"))
+            self.assertTrue(hasattr(sub, "timezone"))
+            self.assertTrue(hasattr(sub, "subaccountType"))
 
         # ! Don't uncomment this because it close one of yours subaccounts !
         # # Close subaccount
