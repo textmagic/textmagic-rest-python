@@ -17,6 +17,8 @@ class TestContacts(unittest.TestCase):
     contact_b_id = None
     list_id = None
 
+    interval = .8
+
     def setUp(self):
         username = "xxx"
         token = "xxx"
@@ -30,7 +32,7 @@ class TestContacts(unittest.TestCase):
         ]
         for f in calls:
             try:
-                time.sleep(.5)
+                time.sleep(self.interval)
                 method = getattr(f[0], "delete")
                 method(f[1])
             except:
@@ -40,7 +42,7 @@ class TestContacts(unittest.TestCase):
 
         # Create a list to assign contact
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         my_list = self.client.lists.create(
             name=self.list_name
         )
@@ -48,7 +50,7 @@ class TestContacts(unittest.TestCase):
 
         # Create a contact
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         contact = self.client.contacts.create(
             firstName=self.contact_first_name,
             lastName=self.contact_last_name,
@@ -63,7 +65,7 @@ class TestContacts(unittest.TestCase):
 
         # Get a contact
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         contact_a = self.client.contacts.get(contact.id)
         self.assertTrue(isinstance(contact_a, Contact))
         self.assertTrue(hasattr(contact_a, "id"))
@@ -82,7 +84,7 @@ class TestContacts(unittest.TestCase):
 
         # Create a second contact
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         contact_b = self.client.contacts.create(
             firstName="James",
             lastName="Smith",
@@ -97,7 +99,7 @@ class TestContacts(unittest.TestCase):
 
         # Get a contact list
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         contacts, pager = self.client.contacts.list()
         self.assertTrue(type(contacts) is list)
         self.assertTrue(isinstance(pager, dict))
@@ -108,7 +110,7 @@ class TestContacts(unittest.TestCase):
 
         # Search a first contact
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         contacts, _ = self.client.contacts.list(search=True, query=self.contact_phone_a)
 
         needle = None
@@ -124,7 +126,7 @@ class TestContacts(unittest.TestCase):
 
         # Update a first contact
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         updated = self.client.contacts.update(
             contact_a.id,
             firstName="Boris",
@@ -139,7 +141,7 @@ class TestContacts(unittest.TestCase):
 
         # Get an updated first contact
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         contact_a = self.client.contacts.get(contact_a.id)
         self.assertTrue(isinstance(contact_a, Contact))
         self.assertEqual(contact_a.firstName, "Boris")
@@ -148,7 +150,7 @@ class TestContacts(unittest.TestCase):
 
         # Get the lists assigned to the contact
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         lists, pager = self.client.contacts.lists(contact_a.id)
         self.assertTrue(type(lists) is list)
         self.assertTrue(isinstance(pager, dict))
@@ -158,11 +160,11 @@ class TestContacts(unittest.TestCase):
 
         # Delete a contact
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         r = self.client.contacts.delete(contact.id)
         self.assertTrue(r)
 
         # Get a deleted contact
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         self.assertRaises(TextmagicException, self.client.contacts.get, contact.id)

@@ -9,6 +9,8 @@ class TestUsers(unittest.TestCase):
 
     senderid = None
 
+    interval = .8
+
     def setUp(self):
         username = "xxx"
         token = "xxx"
@@ -20,7 +22,7 @@ class TestUsers(unittest.TestCase):
         ]
         for f in calls:
             try:
-                time.sleep(.5)
+                time.sleep(self.interval)
                 method = getattr(f[0], "delete")
                 method(f[1])
             except:
@@ -31,7 +33,7 @@ class TestUsers(unittest.TestCase):
 
         # Get a messaging stat
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         m_stat = self.client.stats_messaging.list()
 
         self.assertTrue(type(m_stat) is list)
@@ -50,7 +52,7 @@ class TestUsers(unittest.TestCase):
 
         # Get a spending stat
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         s_stat, pager = self.client.stats_spending.list()
 
         self.assertTrue(type(s_stat) is list)
@@ -61,7 +63,7 @@ class TestUsers(unittest.TestCase):
 
         # Get invoices
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         invoices, pager = self.client.invoices.list()
 
         self.assertTrue(type(invoices) is list)
@@ -77,7 +79,7 @@ class TestUsers(unittest.TestCase):
 
         # Get numbers list
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         numbers, pager = self.client.numbers.list()
 
         self.assertTrue(type(numbers) is list)
@@ -94,7 +96,7 @@ class TestUsers(unittest.TestCase):
 
         # Get number
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         number = self.client.numbers.get(numbers[0].id)
 
         self.assertTrue(isinstance(number, Number))
@@ -108,7 +110,7 @@ class TestUsers(unittest.TestCase):
 
         # Get available numbers
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         available = self.client.numbers.available(country="US", prefix="1646")
 
         self.assertTrue(isinstance(available, dict))
@@ -119,7 +121,7 @@ class TestUsers(unittest.TestCase):
 
         # Create Sender ID
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         senderid = self.client.senderids.create(senderId="TEST", explanation="For testing")
         self.senderid = senderid.id
 
@@ -129,7 +131,7 @@ class TestUsers(unittest.TestCase):
 
         # Get A Sender ID
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         senderid = self.client.senderids.get(senderid.id)
 
         self.assertTrue(isinstance(senderid, Senderid))
@@ -140,7 +142,7 @@ class TestUsers(unittest.TestCase):
 
         # Get sender IDs list
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         senderids, pager = self.client.senderids.list()
 
         self.assertTrue(type(senderids) is list)
@@ -153,18 +155,18 @@ class TestUsers(unittest.TestCase):
 
         # Delete a Sender Id
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         r = self.client.senderids.delete(senderid.id)
         self.assertTrue(r)
 
         # Get deleted sender id
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         self.assertRaises(TextmagicException, self.client.senderids.get, senderid.id)
 
         # Get allowed froms
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         allowed = self.client.sources.allowed(country="US")
 
         self.assertTrue(isinstance(allowed, Source))
@@ -174,7 +176,7 @@ class TestUsers(unittest.TestCase):
 
         # Get user info
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         user = self.client.user.get()
 
         self.assertTrue(isinstance(user, User))
@@ -192,7 +194,7 @@ class TestUsers(unittest.TestCase):
         # ! Don't uncomment this if you don't want spend your balance for buying dedicated number !
         # # Buy dedicated number
         #
-        # time.sleep(.5)
+        # time.sleep(self.interval)
         # phone = available["numbers"][0]
         # number = self.client.numbers.buy(phone=phone, country="US", userId=user.id)
         #
@@ -202,7 +204,7 @@ class TestUsers(unittest.TestCase):
         #
         # # Cancel dedicated number
         #
-        # time.sleep(.5)
+        # time.sleep(self.interval)
         # r = self.client.numbers.delete(number.id)
         # self.assertTrue(r)
         #
@@ -212,16 +214,17 @@ class TestUsers(unittest.TestCase):
 
         # Update user info
 
-        time.sleep(.5)
-        updated = self.client.user.update(
-            firstName=user.firstName,
-            lastName=user.lastName,
-            company=user.company
-        )
+        time.sleep(self.interval)
+        params = dict(firstName=user.firstName, lastName=user.lastName)
+        params['company'] = ''
+        if user.company:
+            params['company'] = user.company
+
+        updated = self.client.user.update(**params)
 
         # Get subaccounts list
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         subs, pager = self.client.subaccounts.list()
 
         self.assertTrue(type(subs) is list)
@@ -232,13 +235,13 @@ class TestUsers(unittest.TestCase):
 
         # Send invite
 
-        # time.sleep(.5)
+        # time.sleep(self.interval)
         # r = self.client.subaccounts.send_invite(email="qaw@mailinator.com", role="A")
         # self.assertTrue(r)
 
         # Get subaccount
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         if subs:
             sub = self.client.subaccounts.get(subs[0].id)
 
@@ -256,13 +259,13 @@ class TestUsers(unittest.TestCase):
         # ! Don't uncomment this because it close one of yours subaccounts !
         # # Close subaccount
         #
-        # time.sleep(.5)
+        # time.sleep(self.interval)
         # r = self.client.subaccounts.close(subs[0].id)
         # self.assertTrue(r)
 
         # Ping
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         p = self.client.util.ping()
 
         self.assertTrue(isinstance(p, dict))

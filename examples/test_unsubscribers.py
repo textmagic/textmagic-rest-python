@@ -11,6 +11,8 @@ class TestUnsubscribers(unittest.TestCase):
     list_id = None
     contact_id = None
 
+    interval = .8
+
     def setUp(self):
         username = "xxx"
         token = "xxx"
@@ -20,7 +22,7 @@ class TestUnsubscribers(unittest.TestCase):
 
         # Unsubscribe a phone number
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         un = self.client.unsubscribers.create(
             phone=self.phone
         )
@@ -30,7 +32,7 @@ class TestUnsubscribers(unittest.TestCase):
 
         # Get an unsubscribed phone
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         un = self.client.unsubscribers.get(un.id)
         self.assertTrue(isinstance(un, Unsubscriber))
         self.assertTrue(hasattr(un, "id"))
@@ -45,7 +47,7 @@ class TestUnsubscribers(unittest.TestCase):
 
         # Get an list of unsubscribers
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         un_list, pager = self.client.unsubscribers.list()
         self.assertTrue(type(un_list) is list)
         self.assertTrue(isinstance(un_list[0], Unsubscriber))

@@ -13,6 +13,8 @@ class TestLists(unittest.TestCase):
     contact_id = None
     list_id = None
 
+    interval = .8
+
     def setUp(self):
         username = "xxx"
         token = "xxx"
@@ -25,7 +27,7 @@ class TestLists(unittest.TestCase):
         ]
         for f in calls:
             try:
-                time.sleep(.5)
+                time.sleep(self.interval)
                 method = getattr(f[0], "delete")
                 method(f[1])
             except:
@@ -35,7 +37,7 @@ class TestLists(unittest.TestCase):
 
         # Create a list
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         l = self.client.lists.create(
             name=self.list_name
         )
@@ -47,7 +49,7 @@ class TestLists(unittest.TestCase):
 
         # Get a list
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         _list = self.client.lists.get(l.id)
         self.assertTrue(isinstance(_list, List))
         self.assertTrue(hasattr(_list, "id"))
@@ -61,7 +63,7 @@ class TestLists(unittest.TestCase):
 
         # Update a list
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         _list = self.client.lists.update(
             _list.id,
             name="Updated Api Wrapper List"
@@ -69,7 +71,7 @@ class TestLists(unittest.TestCase):
 
         # Get a list of lists
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         lists, pager = self.client.lists.list()
         self.assertTrue(type(lists) is list)
         self.assertTrue(isinstance(pager, dict))
@@ -80,7 +82,7 @@ class TestLists(unittest.TestCase):
 
         # Create a contact to assign to list
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         contact = self.client.contacts.create(
             phone=self.contact_phone,
             lists=_list.id
@@ -93,7 +95,7 @@ class TestLists(unittest.TestCase):
 
         # Get contacts in list
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         contacts, pager = self.client.lists.contacts(
             _list.id
         )
@@ -110,11 +112,11 @@ class TestLists(unittest.TestCase):
 
         # Delete a list
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         r = self.client.lists.delete(_list.id)
         self.assertTrue(r)
 
         # Get a deleted list
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         self.assertRaises(TextmagicException, self.client.lists.get, _list.id)

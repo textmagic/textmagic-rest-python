@@ -12,6 +12,8 @@ class TestTemplates(unittest.TestCase):
 
     template_id = None
 
+    interval = .8
+
     def setUp(self):
         username = "xxx"
         token = "xxx"
@@ -23,7 +25,7 @@ class TestTemplates(unittest.TestCase):
         ]
         for f in calls:
             try:
-                time.sleep(.5)
+                time.sleep(self.interval)
                 method = getattr(f[0], "delete")
                 method(f[1])
             except:
@@ -33,7 +35,7 @@ class TestTemplates(unittest.TestCase):
 
         # Create a template
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         template = self.client.templates.create(
             name=self.template_name,
             content=self.template_body,
@@ -46,7 +48,7 @@ class TestTemplates(unittest.TestCase):
 
         # Get a template
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         template = self.client.templates.get(template.id)
         self.assertTrue(isinstance(template, Template))
         self.assertTrue(hasattr(template, "id"))
@@ -58,7 +60,7 @@ class TestTemplates(unittest.TestCase):
 
         # Update a template
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         template = self.client.templates.update(
             template.id,
             name="Updated Template",
@@ -70,7 +72,7 @@ class TestTemplates(unittest.TestCase):
 
         # Get an updated template
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         template = self.client.templates.get(template.id)
         self.assertTrue(isinstance(template, Template))
         self.assertTrue(hasattr(template, "id"))
@@ -82,11 +84,11 @@ class TestTemplates(unittest.TestCase):
 
         # Delete a template
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         r = self.client.templates.delete(template.id)
         self.assertTrue(r)
 
         # Get a deleted template
 
-        time.sleep(.5)
+        time.sleep(self.interval)
         self.assertRaises(TextmagicException, self.client.templates.get, template.id)

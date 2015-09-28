@@ -65,7 +65,7 @@ class Users(CollectionModel):
 
         :Example:
 
-        client.user.update(firstName="John", lastName="Doe", company="TextMagic", timezone=1)
+        client.user.update(firstName="John", lastName="Doe", company="TextMagic")
 
         :param str firstName: User first name. Required.
         :param str lastName:  User last name. Required.
