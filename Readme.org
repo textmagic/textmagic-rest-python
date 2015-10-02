@@ -32,3 +32,9 @@
   #+end_src
 
   You can send to multiple phone numbers by separating them by a comma.
+* Building the Documentation
+  Sphinx document is provided in the =doc= directory.
+  Building the documentation is as simple as runing =make html=, =make latexpdf=, etc.
+  If you are are using =virtualenv=, you may need to tweak the make file
+  to use =sphinx-build= from your =virtualenv=.
+  Alternatively, you could use =sphinx-build= directly.
